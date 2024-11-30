@@ -31,7 +31,7 @@ export type Export = {
 	node: ts.Node
 }
 
-export type ImportsList = (({
+export type Import = ({
 	identifier: string,
 	module_name: string
 	is_type_only: boolean,
@@ -44,7 +44,7 @@ export type ImportsList = (({
 	kind: "star"
 } | {
 	kind: "default"
-}))[]
+})
 
 export type TopLevelType = {
 	name: string,

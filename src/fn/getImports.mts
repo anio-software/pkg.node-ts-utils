@@ -1,11 +1,11 @@
 import ts from "typescript"
-import type {Instance, ImportsList} from "../index.mjs"
+import type {Instance, Import} from "../index.mjs"
 import {filterNodes} from "./filterNodes.mjs"
 
 export function getImports(
 	inst: Instance
-) : ImportsList {
-	const list : ImportsList = []
+) : Import[] {
+	const list : Import[] = []
 	const {source} = inst
 
 	const nodes = filterNodes(source, (node: ts.Node) => {

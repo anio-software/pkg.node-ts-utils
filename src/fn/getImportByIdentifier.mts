@@ -4,17 +4,17 @@ import {getImports} from "./getImports.mjs"
 export function getImportByIdentifier(
 	inst: Instance,
 	identifier: string,
-	type_only?: boolean
+	kind: "type-only" | "value-only" | "dont-care" = "dont-care"
 ) : Import|null {
 	for (const imp of getImports(inst)) {
-		if (imp.identifier === identifier) {
-			if (!type_only) {
-				return imp
-			}
+		if (imp.identifier !== identifier) continue
 
-			if (imp.is_type_only) {
-				return imp
-			}
+		if (kind === "dont-care") {
+			return imp
+		} else if (kind === "type-only" && imp.is_type_only) {
+			return imp
+		} else if (kind === "value-only" && !imp.is_type_only) {
+			return imp
 		}
 	}
 

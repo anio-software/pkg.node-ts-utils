@@ -13,4 +13,5 @@ export {getAllTopLevelTypesNeededForNode} from "./fn/getAllTopLevelTypesNeededFo
 export {convertFunctionDeclaration} from "./fn/convertFunctionDeclaration.mjs"
 export {generateFunctionSignature} from "./fn/generateFunctionSignature.mjs"
 export {getJSDocAsStringFromNode} from "./fn/getJSDocAsStringFromNode.mjs"
+export {getExportByName} from "./fn/getExportByName.mjs"
 export {parseCode} from "./fn/parseCode.mjs"

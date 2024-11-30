@@ -3,11 +3,18 @@ import {getImports} from "./getImports.mjs"
 
 export function getImportByIdentifier(
 	inst: Instance,
-	identifier: string
+	identifier: string,
+	type_only?: boolean
 ) : Import|null {
 	for (const imp of getImports(inst)) {
 		if (imp.identifier === identifier) {
-			return imp
+			if (!type_only) {
+				return imp
+			}
+
+			if (imp.is_type_only) {
+				return imp
+			}
 		}
 	}
 

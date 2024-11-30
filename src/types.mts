@@ -25,11 +25,11 @@ export type FunctionDeclaration = {
 	return_type: string
 }
 
-export type ExportsList = {
+export type Export = {
 	name: string,
 	is_type_only: boolean,
 	node: ts.Node
-}[]
+}
 
 export type ImportsList = (({
 	identifier: string,

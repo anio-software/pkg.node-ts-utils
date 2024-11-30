@@ -1,15 +1,15 @@
 import ts from "typescript"
-import type {Instance, ExportsList} from "../index.mjs"
+import type {Instance, Export} from "../index.mjs"
 
 export function getExports(
 	inst: Instance
-) : ExportsList {
+) : Export[] {
 	const module_symbol = inst.checker.getSymbolAtLocation(inst.source)
 
 	if (!module_symbol) return []
 
 	const export_symbols = inst.checker.getExportsOfModule(module_symbol)
-	const ret : ExportsList = []
+	const ret : Export[] = []
 
 	for (const symbol of export_symbols) {
 		let is_type_only : boolean = false

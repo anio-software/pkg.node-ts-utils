@@ -10,8 +10,8 @@
   },
   "exports": {
     ".": {
-      "types": "./dist/index.d.mts",
-      "import": "./dist/index.mjs"
+      "types": "./dist/default/index.d.mts",
+      "import": "./dist/default/index.mjs"
     }
   },
   "dependencies": {

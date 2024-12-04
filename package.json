@@ -1,12 +1,12 @@
 {
-  "name": "@anio-software/ts-utils",
+  "name": "@aniojs/node-ts-utils",
   "version": "0.0.5",
   "description": "",
   "author": "Anio Software <info@anio.software>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/anio-software/ts-utils.git"
+    "url": "git+https://github.com/aniojs-org/node-ts-utils.git"
   },
   "exports": {
     ".": {

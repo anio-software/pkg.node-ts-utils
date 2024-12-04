@@ -7,4 +7,4 @@ npm publish --provenance --access public
 
 cd types.pkg
 
-npm publish --provenance --access public
+npm publish --access public

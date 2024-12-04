@@ -1,0 +1,22 @@
+{
+    "extends": "./tsconfig.base.json",
+    "compilerOptions": {
+        "paths": {
+            "#~src/*": [
+                "./src/*"
+            ],
+            "#~fourtune/*": [
+                "./auto/fourtune/src/*"
+            ],
+            "#~auto/*": [
+                "./auto/user/src/*"
+            ],
+            "#~assets/*": [
+                "./assets/*"
+            ]
+        }
+    },
+    "include": [
+        "../../../src/**/*"
+    ]
+}

@@ -1,5 +1,5 @@
 import ts from "typescript"
-import type {Instance} from "../index.mjs"
+import type {Instance} from "./Instance.d.mts"
 
 export function parseCode(
 	code: string

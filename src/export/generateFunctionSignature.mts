@@ -1,4 +1,4 @@
-import type {FunctionDeclaration} from "../index.mjs"
+import type {FunctionDeclaration} from "./FunctionDeclaration.d.mts"
 
 function indent(str: string, level: number) : string {
 	const indent = "\t".repeat(level)

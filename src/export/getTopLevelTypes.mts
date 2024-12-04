@@ -1,4 +1,5 @@
-import type {Instance, TopLevelType} from "../index.mjs"
+import type {Instance} from "./Instance.d.mts"
+import type {TopLevelType} from "./TopLevelType.d.mts"
 import {getTopLevelTypeDeclarations} from "./getTopLevelTypeDeclarations.mjs"
 import {getTypeImports} from "./getTypeImports.mjs"
 

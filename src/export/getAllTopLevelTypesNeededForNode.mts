@@ -1,5 +1,6 @@
 import ts from "typescript"
-import type {Instance, TopLevelType} from "../index.mjs"
+import type {Instance} from "./Instance.d.mts"
+import type {TopLevelType} from "./TopLevelType.d.mts"
 import {getTypesUsed} from "./getTypesUsed.mjs"
 import {getTopLevelTypes} from "./getTopLevelTypes.mjs"
 

@@ -1,5 +1,5 @@
 import ts from "typescript"
-import type {Instance} from "../index.mjs"
+import type {Instance} from "./Instance.d.mts"
 import {mapNodes} from "./mapNodes.mjs"
 import {printNode} from "./printNode.mjs"
 import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mjs"

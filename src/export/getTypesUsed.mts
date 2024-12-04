@@ -1,5 +1,5 @@
 import ts from "typescript"
-import type {Instance} from "../index.mjs"
+import type {Instance} from "./Instance.d.mts"
 import {filterNodes} from "./filterNodes.mjs"
 
 export function getTypesUsed(

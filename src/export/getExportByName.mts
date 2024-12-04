@@ -1,4 +1,5 @@
-import type {Instance, Export} from "../index.mjs"
+import type {Instance} from "./Instance.d.mts"
+import type {Export} from "./Export.d.mts"
 import {getExports} from "./getExports.mjs"
 
 export function getExportByName(

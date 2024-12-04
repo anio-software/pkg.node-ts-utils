@@ -1,5 +1,6 @@
 import ts from "typescript"
-import type {Instance, Export} from "../index.mjs"
+import type {Instance} from "./Instance.d.mts"
+import type {Export} from "./Export.d.mts"
 
 export function getExports(
 	inst: Instance

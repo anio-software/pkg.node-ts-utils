@@ -1,7 +1,7 @@
 import type {Instance} from "./Instance.d.mts"
 import type {TopLevelType} from "./TopLevelType.d.mts"
-import {getTopLevelTypeDeclarations} from "./getTopLevelTypeDeclarations.mjs"
-import {getTypeImports} from "./getTypeImports.mjs"
+import {getTopLevelTypeDeclarations} from "./getTopLevelTypeDeclarations.mts"
+import {getTypeImports} from "./getTypeImports.mts"
 
 export function getTopLevelTypes(
 	inst: Instance,

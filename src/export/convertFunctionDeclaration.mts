@@ -1,5 +1,5 @@
 import ts from "typescript"
-import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mjs"
+import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mts"
 import type {FunctionDeclaration} from "./FunctionDeclaration.d.mts"
 
 export function convertFunctionDeclaration(

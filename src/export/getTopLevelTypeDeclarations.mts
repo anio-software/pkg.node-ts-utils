@@ -1,8 +1,8 @@
 import ts from "typescript"
 import type {Instance} from "./Instance.d.mts"
-import {mapNodes} from "./mapNodes.mjs"
-import {printNode} from "./printNode.mjs"
-import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mjs"
+import {mapNodes} from "./mapNodes.mts"
+import {printNode} from "./printNode.mts"
+import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mts"
 
 function getDeclarationAsString(
 	node: ts.TypeAliasDeclaration,

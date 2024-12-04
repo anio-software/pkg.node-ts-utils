@@ -1,5 +1,5 @@
 import type {Instance} from "./Instance.d.mts"
-import {getExports} from "./getExports.mjs"
+import {getExports} from "./getExports.mts"
 
 export function getExportNames(
 	inst: Instance,

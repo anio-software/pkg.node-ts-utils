@@ -1,7 +1,7 @@
 import type {Instance} from "./Instance.d.mts"
 import type {Import} from "./Import.d.mts"
 
-import {getImports} from "./getImports.mjs"
+import {getImports} from "./getImports.mts"
 
 export function getImportByIdentifier(
 	inst: Instance,

@@ -1,7 +1,7 @@
 import ts from "typescript"
 import type {Instance} from "./Instance.d.mts"
 import type {Import} from "./Import.d.mts"
-import {filterNodes} from "./filterNodes.mjs"
+import {filterNodes} from "./filterNodes.mts"
 
 export function getImports(
 	inst: Instance

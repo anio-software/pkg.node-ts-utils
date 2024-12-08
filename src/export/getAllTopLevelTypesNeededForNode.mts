@@ -33,7 +33,7 @@ export function getAllTopLevelTypesNeededForNode(
 				if (!(ret.map(x => x.name).includes(type_name))) {
 					ret.push({
 						name: type_name,
-						definition: `/* couldn't find the type '${type_name}' at the top level */`
+						definition: `/* couldn't find a user defined type named '${type_name}' at the top level */`
 					})
 				}
 

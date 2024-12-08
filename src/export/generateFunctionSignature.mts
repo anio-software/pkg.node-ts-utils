@@ -65,9 +65,14 @@ export function generateFunctionSignature(
 
 	if (fn.params.length) {
 		for (const param of fn.params) {
-			if (param.jsdoc.length && options.use_jsdocs) {
-				signature += indent(param.jsdoc, 1) + "\n"
-			}
+			// todo:
+			// would need to handle the case where
+			// jsdoc would contain something like "* @param"
+			// (i.e. we would need to add the start /* and end comment */ markers ourselves)
+
+			//if (param.jsdoc.length && options.use_jsdocs) {
+			//	signature += indent(param.jsdoc, 1) + "\n"
+			//}
 
 			signature += `\t${param.definition},\n`
 		}

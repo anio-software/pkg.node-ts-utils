@@ -1,26 +1,26 @@
 {
   "name": "@aniojs/node-ts-utils",
   "version": "0.1.4",
-  "description": "",
   "author": "Anio Software <info@anio.software>",
+  "description": "",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/aniojs-org/node-ts-utils.git"
-  },
   "exports": {
     ".": {
       "types": "./dist/default/index.d.mts",
       "import": "./dist/default/index.mjs"
     }
   },
-  "dependencies": {
-    "typescript": "^5.7.2"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aniojs-org/node-ts-utils.git"
   },
   "devDependencies": {
     "@fourtune/realm-js": "^0.31000.2",
     "@types/node": "^22.7.7",
     "fourtune": "^0.10100.1"
+  },
+  "dependencies": {
+    "typescript": "^5.7.2"
   },
   "files": [
     "./dist/"

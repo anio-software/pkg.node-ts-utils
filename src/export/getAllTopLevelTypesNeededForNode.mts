@@ -3,6 +3,8 @@ import type {Instance} from "./Instance.d.mts"
 import type {TopLevelType} from "./TopLevelType.d.mts"
 import {getTypesUsed} from "./getTypesUsed.mts"
 import {getTopLevelTypes} from "./getTopLevelTypes.mts"
+import {getImports} from "./getImports.mts"
+import type {Import} from "./Import.d.mts"
 
 export function getAllTopLevelTypesNeededForNode(
 	inst: Instance,
@@ -10,8 +12,37 @@ export function getAllTopLevelTypesNeededForNode(
 	ignored_types: string[] = []
 ) : {name: string, definition: string}[] {
 	const top_level_types = getTopLevelTypes(inst, true)
+	const top_level_imports = getImports(inst)
 
 	function findType(name: string) : TopLevelType|null {
+		//
+		// not a type but referring to a top level identifier
+		//
+		if (name.startsWith(`typeof:`)) {
+			let matched_import : undefined|Import = undefined
+
+			const identifier_to_search = name.slice(`typeof:`.length)
+
+			for (const top_level_import of top_level_imports) {
+				if (top_level_import.identifier === identifier_to_search) {
+					matched_import = top_level_import
+
+					break
+				}
+			}
+
+			if (matched_import) {
+				return {
+					definition: matched_import.definition,
+					depends_on_type: [],
+					name: identifier_to_search,
+					node: null
+				}
+			}
+
+			return null
+		}
+
 		for (const _ of top_level_types) {
 			if (_.name === name) return _
 		}

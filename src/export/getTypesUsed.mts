@@ -10,16 +10,25 @@ export function getTypesUsed(
 
 	const nodes = filterNodes(
 		node, (node: ts.Node) => {
+			// catch "typeof X"
+			if (ts.isTypeQueryNode(node)) return true
+
 			return ts.isTypeReferenceNode(node)
 		}
-	) as ts.TypeReferenceNode[]
+	) as (ts.TypeReferenceNode|ts.TypeQueryNode)[]
 
 	for (const node of nodes) {
-		const sym = inst.checker.getTypeAtLocation(node)
+		if (ts.isTypeReferenceNode(node)) {
+			const sym = inst.checker.getTypeAtLocation(node)
 
-		if (sym.isTypeParameter()) continue
+			if (sym.isTypeParameter()) continue
 
-		list.push(node.typeName.getText(inst.source))
+			list.push(node.typeName.getText(inst.source))
+		} else if (ts.isTypeQueryNode(node)) {
+			const identifier = node.exprName.getText(inst.source)
+
+			list.push(`typeof:${identifier}`)
+		}
 	}
 
 	return list

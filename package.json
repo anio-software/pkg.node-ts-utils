@@ -18,7 +18,7 @@
     "typescript": "^5.7.2"
   },
   "devDependencies": {
-    "@fourtune/realm-js": "^0.11000.0",
+    "@fourtune/realm-js": "^0.31000.2",
     "@types/node": "^22.7.7",
     "fourtune": "^0.10100.1"
   },

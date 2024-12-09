@@ -8,8 +8,11 @@
             "#~fourtune/*": [
                 "./auto/fourtune/src/*"
             ],
-            "#~auto/*": [
-                "./auto/user/src/*"
+            "#~synthetic/async.sync/*": [
+                "./auto/synthetic/async.sync/src/*"
+            ],
+            "#~synthetic/user/*": [
+                "./auto/synthetic/user/src/*"
             ],
             "#~assets/*": [
                 "./assets/*"
@@ -18,6 +21,7 @@
     },
     "include": [
         "../../../auto/fourtune/src/**/*",
-        "../../../auto/user/src/**/*"
+        "../../../auto/synthetic/async.sync/src/**/*",
+        "../../../auto/synthetic/user/src/**/*"
     ]
 }

@@ -30,12 +30,15 @@ export function convertFunctionDeclaration(
 		for (const param of fn.parameters) {
 			const name : string = param.name.getText(source)
 			const type : string = param.type ? param.type.getText(source) : "any"
+			const optional = param.questionToken !== undefined
+			const question_mark = optional ? "?" : ""
 
 			params.push({
 				name,
 				type,
 				jsdoc: getJSDocAsStringFromNode(param),
-				definition: `${name}: ${type}`
+				definition: `${name}${question_mark}: ${type}`,
+				optional
 			})
 		}
 	}

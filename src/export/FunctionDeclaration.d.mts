@@ -13,6 +13,7 @@ export type FunctionDeclaration = {
 		type: string,
 		jsdoc: string,
 		definition: string
+		optional: boolean
 	}[],
 
 	return_type: string

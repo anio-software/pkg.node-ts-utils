@@ -81,10 +81,24 @@ export function getAllTopLevelTypesNeededForNode(
 			})
 
 			if (depends_on_type.length) {
-				ret = [
-					...resolve(depends_on_type),
-					...ret
-				]
+				// prone to create duplicates:
+				//
+				//	ret = [
+				//		...resolve(depends_on_type),
+				//		...ret
+				//	]
+
+				// construct the new "ret" array
+				const new_ret = [...resolve(depends_on_type)]
+				const new_ret_names = new_ret.map(x => x.name)
+
+				for (const entry of ret) {
+					if (new_ret_names.includes(entry.name)) continue
+
+					new_ret.push(entry)
+				}
+
+				ret = new_ret
 			}
 
 			// make sure we don't have duplicates

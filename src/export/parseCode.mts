@@ -5,7 +5,9 @@ export function parseCode(
 	code: string
 ) : Instance {
 	const compiler_options = {
-		target: ts.ScriptTarget.ESNext
+		target: ts.ScriptTarget.ESNext,
+		module: ts.ModuleKind.NodeNext,
+		ModuleResolutionKind: ts.ModuleResolutionKind.NodeNext
 	}
 
 	const synthetic_file_name = `${Math.random().toString(32).slice(2)}.mts`

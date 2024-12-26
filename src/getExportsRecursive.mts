@@ -1,3 +1,5 @@
+import {useContext, type RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
+
 import ts from "typescript"
 import type {Instance} from "#~src/export/Instance.d.mts"
 import type {Export} from "#~src/export/Export.d.mts"
@@ -6,10 +8,13 @@ import {resolveModuleName} from "#~src/export/resolveModuleName.mts"
 import {parseCode} from "#~src/export/parseCode.mts"
 import fs from "node:fs"
 
-export function getExportsRecursive(
+export function implementation(
+	wrappedContext: RuntimeWrappedContextInstance,
 	filePath: string|null,
 	inst: Instance
 ) : Export[] {
+	const context = useContext(wrappedContext, 0)
+
 	const module_symbol = inst.checker.getSymbolAtLocation(inst.source)
 
 	if (!module_symbol) return []
@@ -81,20 +86,30 @@ export function getExportsRecursive(
 			const resolvedModule = resolveModuleName(moduleName, filePath)
 
 			if (!resolvedModule) {
+				context.log.warn(
+					`unable to resolve module name '${moduleName}' (from '${filePath}')`
+				)
+
 				continue
 			}
 
 			const resolvedModulePath = resolvedModule.resolvedFileName
 			const resolvedModuleCode = fs.readFileSync(resolvedModulePath).toString()
 
-			const moduleExports = getExportsRecursive(
-				resolvedModulePath, parseCode(resolvedModuleCode)
+			const moduleExports = implementation(
+				wrappedContext,
+				resolvedModulePath,
+				parseCode(resolvedModuleCode)
 			)
 
 			for (const moduleExport of moduleExports) {
 				// prevent duplicates from occouring
 				// todo: this is an error condition
 				if (existsInReturnArray(moduleExport.name)) {
+					context.log.error(
+						`already got export name '${moduleExport.name}', ignoring.`
+					)
+
 					continue
 				}
 

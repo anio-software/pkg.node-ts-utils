@@ -1,4 +1,4 @@
-import {implementation} from "#~src/getExportsRecursive.mts"
+import {implementation} from "#~src/__getExportsRecursive.mts"
 import type {RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
 import {getProject} from "@fourtune/realm-js/v0/project"
 

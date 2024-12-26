@@ -13,7 +13,7 @@ export default {
 
 	autogenerate: {
 		...generateFactoryFiles({
-			source_file: "src/getExportsRecursive.mts",
+			source_file: "src/__getExportsRecursive.mts",
 			export_name: "getExportsRecursive",
 			destination: "src/export"
 		})

@@ -16,6 +16,11 @@ export default {
 			source_file: "src/__getExportsRecursive.mts",
 			export_name: "getExportsRecursive",
 			destination: "src/export"
+		}),
+		...generateFactoryFiles({
+			source_file: "src/__getExports.mts",
+			export_name: "getExports",
+			destination: "src/export"
 		})
 	}
 }

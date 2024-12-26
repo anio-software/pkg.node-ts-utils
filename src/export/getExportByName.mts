@@ -1,6 +1,6 @@
 import type {Instance} from "./Instance.d.mts"
 import type {Export} from "./Export.d.mts"
-import {getExports} from "./getExports.mts"
+import {getExports} from "#~synthetic/user/export/getExports.mts"
 
 export function getExportByName(
 	inst: Instance,

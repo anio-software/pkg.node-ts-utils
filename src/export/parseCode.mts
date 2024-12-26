@@ -31,5 +31,10 @@ export function parseCode(
 	const source = program.getSourceFile(synthetic_file_name)!
 	const checker = program.getTypeChecker()
 
-	return {source, checker}
+	return {
+		source,
+		checker,
+		compilerHost: host,
+		compilerOptions: compiler_options
+	}
 }

@@ -1,9 +1,9 @@
 import ts from "typescript"
-import type {Instance} from "./Instance.d.mts"
-import type {Export} from "./Export.d.mts"
-import {filterNodes} from "./filterNodes.mts"
-import {resolveModuleName} from "./resolveModuleName.mts"
-import {parseCode} from "./parseCode.mts"
+import type {Instance} from "#~src/export/Instance.d.mts"
+import type {Export} from "#~src/export/Export.d.mts"
+import {filterNodes} from "#~src/export/filterNodes.mts"
+import {resolveModuleName} from "#~src/export/resolveModuleName.mts"
+import {parseCode} from "#~src/export/parseCode.mts"
 import fs from "node:fs"
 
 export function getExportsRecursive(

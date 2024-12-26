@@ -1,6 +1,10 @@
 import ts from "typescript"
 import type {Instance} from "./Instance.d.mts"
 import type {Export} from "./Export.d.mts"
+import {filterNodes} from "./filterNodes.mts"
+import {resolveModuleName} from "./resolveModuleName.mts"
+import {parseCode} from "./parseCode.mts"
+import fs from "node:fs"
 
 export function getExportsRecursive(
 	filePath: string|null,
@@ -49,5 +53,59 @@ export function getExportsRecursive(
 		})
 	}
 
+	if (filePath !== null) {
+		//
+		// handle case of a star export:
+		//
+		// export * from "some-package"
+		//
+		// where we have to actually resolve and look at
+		// "some-package" to know what exports it will produce
+		//
+		const starExportNodes = filterNodes(
+			inst.source, (node: ts.Node) => {
+				if (!ts.isExportDeclaration(node)) return false
+				if (!node.moduleSpecifier) return false
+
+				// we are only interested in exports
+				// without a clause
+				if (node.exportClause) return false
+
+				return true
+			}
+		) as ts.ExportDeclaration[]
+
+		for (const node of starExportNodes) {
+			const moduleName = node.moduleSpecifier!.getText(inst.source).slice(1, -1)
+
+			const resolvedModule = resolveModuleName(moduleName, filePath)
+
+			if (!resolvedModule) {
+				continue
+			}
+
+			const resolvedModulePath = resolvedModule.resolvedFileName
+			const resolvedModuleCode = fs.readFileSync(resolvedModulePath).toString()
+
+			const moduleExports = getExportsRecursive(
+				resolvedModulePath, parseCode(resolvedModuleCode)
+			)
+
+			for (const moduleExport of moduleExports) {
+				// prevent duplicates from occouring
+				// todo: this is an error condition
+				if (existsInReturnArray(moduleExport.name)) {
+					continue
+				}
+
+				ret.push(moduleExport)
+			}
+		}
+	}
+
 	return ret
+
+	function existsInReturnArray(name: string) {
+		return !!ret.filter(entry => entry.name === name).length
+	}
 }

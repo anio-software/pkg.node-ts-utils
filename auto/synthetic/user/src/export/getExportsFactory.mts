@@ -3,13 +3,13 @@ import type {RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
 import {getProject} from "@fourtune/realm-js/v0/project"
 
 // vvv--- types needed for implementation
-import type {Export} from "#~src/export/Export.d.mts"
 import type {Instance} from "#~src/export/Instance.d.mts"
+import type {Ret} from "#~src/__getExportsRecursive.mts"
 // ^^^--- types needed for implementation
 
 declare function getExports(
 	inst: Instance
-) : Export[]
+) : Ret
 
 /**
  * @brief
@@ -35,7 +35,7 @@ export function getExportsFactory(context: RuntimeWrappedContextInstance) : type
 		}
 	}
 
-	return function getExports(inst: Instance) : Export[] {
+	return function getExports(inst: Instance) : Ret {
 		return implementation(local_context, inst)
 	}
 }

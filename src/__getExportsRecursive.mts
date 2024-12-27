@@ -8,16 +8,60 @@ import {resolveModuleName} from "#~src/export/resolveModuleName.mts"
 import {parseCode} from "#~src/export/parseCode.mts"
 import fs from "node:fs"
 
+export type Ret = {
+	exports: Export[],
+	getTypeExportByName: (name: string) => Export|null,
+	getValueExportByName: (name: string) => Export|null,
+	getExportByName: (name: string) => Export|null,
+	exportNames: string[]
+}
+
+function makeRetObject(exports: Export[]) {
+	return {
+		exports,
+
+		getTypeExportByName(name: string) {
+			for (const entry of exports) {
+				if (!entry.is_type_only) continue
+
+				if (entry.name === name) return entry
+			}
+
+			return null
+		},
+
+		getValueExportByName(name: string) {
+			for (const entry of exports) {
+				if (entry.is_type_only) continue
+
+				if (entry.name === name) return entry
+			}
+
+			return null
+		},
+
+		getExportByName(name: string) {
+			for (const entry of exports) {
+				if (entry.name === name) return entry
+			}
+
+			return null
+		},
+
+		exportNames: exports.map(x => x.name)
+	}
+}
+
 export function implementation(
 	wrappedContext: RuntimeWrappedContextInstance,
 	filePath: string|null,
 	inst: Instance
-) : Export[] {
+) : Ret {
 	const context = useContext(wrappedContext, 0)
 
 	const module_symbol = inst.checker.getSymbolAtLocation(inst.source)
 
-	if (!module_symbol) return []
+	if (!module_symbol) return makeRetObject([])
 
 	const export_symbols = inst.checker.getExportsOfModule(module_symbol)
 	const ret : Export[] = []
@@ -102,7 +146,7 @@ export function implementation(
 				parseCode(resolvedModuleCode)
 			)
 
-			for (const moduleExport of moduleExports) {
+			for (const moduleExport of moduleExports.exports) {
 				// prevent duplicates from occouring
 				// todo: this is an error condition
 				if (existsInReturnArray(moduleExport.name)) {
@@ -118,7 +162,7 @@ export function implementation(
 		}
 	}
 
-	return ret
+	return makeRetObject(ret)
 
 	function existsInReturnArray(name: string) {
 		return !!ret.filter(entry => entry.name === name).length

@@ -18,6 +18,6 @@ import {getExportsRecursiveFactory as factory} from "#~synthetic/user/export/get
 
 const fn = factory(createContext())
 
-export function getExportsRecursive(filePath: string|null, inst: Instance) : Ret {
-	return fn(filePath, inst)
+export function getExportsRecursive(filePath: string|null, inst: Instance, _originModule?: string|undefined) : Ret {
+	return fn(filePath, inst, _originModule)
 }

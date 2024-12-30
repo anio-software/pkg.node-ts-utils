@@ -55,7 +55,9 @@ function makeRetObject(exports: Export[]) {
 export function implementation(
 	wrappedContext: RuntimeWrappedContextInstance,
 	filePath: string|null,
-	inst: Instance
+	inst: Instance,
+	// internal parameter
+	_originModule?: string|undefined
 ) : Ret {
 	const context = useContext(wrappedContext, 0)
 
@@ -98,7 +100,12 @@ export function implementation(
 		ret.push({
 			name: symbol.name,
 			is_type_only,
-			node: declaration
+			node: declaration,
+			originModule: (
+				_originModule !== undefined ? _originModule : (
+					filePath !== null ? filePath : undefined
+				)
+			)
 		})
 	}
 
@@ -143,7 +150,8 @@ export function implementation(
 			const moduleExports = implementation(
 				wrappedContext,
 				resolvedModulePath,
-				parseCode(resolvedModuleCode)
+				parseCode(resolvedModuleCode),
+				moduleName
 			)
 
 			for (const moduleExport of moduleExports.exports) {

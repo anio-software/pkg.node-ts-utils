@@ -18,7 +18,8 @@ type Ret = {
 
 declare function getExportsRecursive(
 	filePath: string|null,
-	inst: Instance
+	inst: Instance,
+	_originModule?: string|undefined
 ) : Ret
 
 /**
@@ -45,7 +46,7 @@ export function getExportsRecursiveFactory(context: RuntimeWrappedContextInstanc
 		}
 	}
 
-	return function getExportsRecursive(filePath: string|null, inst: Instance) : Ret {
-		return implementation(local_context, filePath, inst)
+	return function getExportsRecursive(filePath: string|null, inst: Instance, _originModule?: string|undefined) : Ret {
+		return implementation(local_context, filePath, inst, _originModule)
 	}
 }

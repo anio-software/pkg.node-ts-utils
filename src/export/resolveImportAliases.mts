@@ -47,8 +47,6 @@ function transformerFactory(
 ) {
 	const sorted_aliases = sortAliases(aliases)
 
-	console.log(sorted_aliases)
-
 	return function transformer(context: ts.TransformationContext) {
 		return (root_node: ts.Node) => {
 			const visit = (node: ts.Node) : ts.Node => {

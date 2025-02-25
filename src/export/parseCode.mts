@@ -32,6 +32,7 @@ export function parseCode(
 	const checker = program.getTypeChecker()
 
 	return {
+		program,
 		source,
 		checker,
 		compilerHost: host,

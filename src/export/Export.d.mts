@@ -1,8 +1,10 @@
-import ts from "typescript"
+import {
+	type Node as TSNode
+} from "typescript"
 
 export type Export = {
 	name: string,
 	is_type_only: boolean,
-	node: ts.Node,
+	node: TSNode,
 	originModule: string|undefined
 }

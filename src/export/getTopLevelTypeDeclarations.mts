@@ -1,17 +1,24 @@
-import ts from "typescript"
+import {
+	type TypeAliasDeclaration as TSTypeAliasDeclaration,
+	factory as tsFactory,
+	type Node as TSNode,
+	isTypeAliasDeclaration as tsIsTypeAliasDeclaration,
+	isTypeReferenceNode as tsIsTypeReferenceNode
+} from "typescript"
+
 import type {Instance} from "./Instance.d.mts"
 import {mapNodes} from "./mapNodes.mts"
 import {printNode} from "./printNode.mts"
 import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mts"
 
 function getDeclarationAsString(
-	node: ts.TypeAliasDeclaration,
+	node: TSTypeAliasDeclaration,
 	drop_export_keyword: boolean = true
 ) : string {
 	let ret = ``
 
 	// drop "export" keyword
-	const type = ts.factory.createTypeAliasDeclaration(
+	const type = tsFactory.createTypeAliasDeclaration(
 		(drop_export_keyword === true) ? [] : node.modifiers,
 		node.name,
 		node.typeParameters,
@@ -32,12 +39,12 @@ export function getTopLevelTypeDeclarations(
 	drop_export_keyword?: boolean
 ) {
 	return mapNodes(
-		inst.source, (node: ts.Node) => {
+		inst.source, (node: TSNode) => {
 			if (node.parent !== inst.source) return
-			if (!ts.isTypeAliasDeclaration(node)) return
+			if (!tsIsTypeAliasDeclaration(node)) return
 
-			const depends_on_type : string[] = mapNodes(node, (n : ts.Node) => {
-				if (!ts.isTypeReferenceNode(n)) return
+			const depends_on_type : string[] = mapNodes(node, (n : TSNode) => {
+				if (!tsIsTypeReferenceNode(n)) return
 
 				return n.typeName.getText(inst.source)
 			})

@@ -1,4 +1,14 @@
-import ts from "typescript"
+import {
+	type TransformationContext as TSTransformationContext,
+	type Node as TSNode,
+	visitEachChild as tsVisitEachChild,
+	isImportDeclaration as tsIsImportDeclaration,
+	type SourceFile as TSSourceFile,
+	factory as tsFactory,
+	isExportDeclaration as tsIsExportDeclaration,
+	visitNode as tsVisitNode,
+	transform as tsTransform
+} from "typescript"
 import type {Instance} from "./Instance.d.mts"
 
 type Aliases = {
@@ -47,14 +57,14 @@ function transformerFactory(
 ) {
 	const sorted_aliases = sortAliases(aliases)
 
-	return function transformer(context: ts.TransformationContext) {
-		return (root_node: ts.Node) => {
-			const visit = (node: ts.Node) : ts.Node => {
-				const new_node = ts.visitEachChild(node, visit, context)
+	return function transformer(context: TSTransformationContext) {
+		return (root_node: TSNode) => {
+			const visit = (node: TSNode) : TSNode => {
+				const new_node = tsVisitEachChild(node, visit, context)
 
-				if (ts.isImportDeclaration(new_node)) {
+				if (tsIsImportDeclaration(new_node)) {
 					const import_specifier = new_node.moduleSpecifier.getText(
-						root_node as ts.SourceFile
+						root_node as TSSourceFile
 					).toString().slice(1).slice(0, -1)
 
 					const new_import_specifier = resolveImportAlias(sorted_aliases, import_specifier)
@@ -62,12 +72,12 @@ function transformerFactory(
 					return context.factory.createImportDeclaration(
 						new_node.modifiers,
 						new_node.importClause,
-						ts.factory.createStringLiteral(new_import_specifier),
+						tsFactory.createStringLiteral(new_import_specifier),
 						new_node.attributes
 					)
-				} else if (ts.isExportDeclaration(new_node) && new_node.moduleSpecifier) {
+				} else if (tsIsExportDeclaration(new_node) && new_node.moduleSpecifier) {
 					const import_specifier = new_node.moduleSpecifier.getText(
-						root_node as ts.SourceFile
+						root_node as TSSourceFile
 					).toString().slice(1).slice(0, -1)
 
 					const new_import_specifier = resolveImportAlias(sorted_aliases, import_specifier)
@@ -76,7 +86,7 @@ function transformerFactory(
 						new_node.modifiers,
 						new_node.isTypeOnly,
 						new_node.exportClause,
-						ts.factory.createStringLiteral(new_import_specifier),
+						tsFactory.createStringLiteral(new_import_specifier),
 						new_node.attributes
 					)
 				}
@@ -84,17 +94,17 @@ function transformerFactory(
 				return new_node
 			}
 
-			return ts.visitNode(root_node, visit)
+			return tsVisitNode(root_node, visit)
 		}
 	}
 }
 
 export function resolveImportAliases(
 	instance: Instance, aliases: Aliases
-) : ts.Node {
+) : TSNode {
 	const transformer = transformerFactory(aliases)
 
-	const {transformed} = ts.transform(instance.source, [transformer])
+	const {transformed} = tsTransform(instance.source, [transformer])
 
 	return transformed[0]
 }

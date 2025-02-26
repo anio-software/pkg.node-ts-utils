@@ -1,27 +1,32 @@
-import ts from "typescript"
+import {
+	type Program as TSProgram,
+	getPreEmitDiagnostics as tsGetPreEmitDiagnostics,
+	flattenDiagnosticMessageText as tsFlattenDiagnosticMessageText,
+	getLineAndCharacterOfPosition as tsGetLineAndCharacterOfPosition
+} from "typescript"
 
 type DiagnosticMessage = {
 	code: number
 	message: string
 }
 
-export function emit(program: ts.Program): {
+export function emit(program: TSProgram): {
 	emitSkipped: boolean
 	diagnosticMessages: DiagnosticMessage[]
 } {
 	const result = program.emit()
 
-	const allDiagnostics = ts.getPreEmitDiagnostics(program).concat(result.diagnostics)
+	const allDiagnostics = tsGetPreEmitDiagnostics(program).concat(result.diagnostics)
 
 	let diagnosticMessages: DiagnosticMessage[] = []
 
 	for (const diagnostic of allDiagnostics) {
 		const {code, messageText} = diagnostic
-		const message = ts.flattenDiagnosticMessageText(messageText, "\n")
+		const message = tsFlattenDiagnosticMessageText(messageText, "\n")
 
 		if (diagnostic.file) {
 			// @ts-ignore:next-line
-			const {line, character} = ts.getLineAndCharacterOfPosition(diagnostic.file, diagnostic.start)
+			const {line, character} = tsGetLineAndCharacterOfPosition(diagnostic.file, diagnostic.start)
 
 			diagnosticMessages.push({
 				code,

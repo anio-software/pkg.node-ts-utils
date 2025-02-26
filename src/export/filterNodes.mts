@@ -1,20 +1,24 @@
-import ts from "typescript"
+import {
+	type Node as TSNode,
+	visitEachChild as tsVisitEachChild,
+	visitNode as tsVisitNode
+} from "typescript"
 
 export function filterNodes(
-	entry: ts.Node,
-	test: (node: ts.Node) => boolean
-) : ts.Node[] {
-	const result : ts.Node[] = []
+	entry: TSNode,
+	test: (node: TSNode) => boolean
+) : TSNode[] {
+	const result : TSNode[] = []
 
-	function visitor(node: ts.Node) {
+	function visitor(node: TSNode) {
 		if (test(node)) {
 			result.push(node)
 		}
 
-		return ts.visitEachChild(node, visitor, undefined)
+		return tsVisitEachChild(node, visitor, undefined)
 	}
 
-	ts.visitNode(entry, visitor)
+	tsVisitNode(entry, visitor)
 
 	return result
 }

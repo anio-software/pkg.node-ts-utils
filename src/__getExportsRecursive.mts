@@ -1,6 +1,14 @@
 import {useContext, type RuntimeWrappedContextInstance} from "@fourtune/realm-js/runtime"
 
-import ts from "typescript"
+import {
+	isExportSpecifier as tsIsExportSpecifier,
+	isTypeAliasDeclaration as tsIsTypeAliasDeclaration,
+	isNamedExports as tsIsNamedExports,
+	isExportDeclaration as tsIsExportDeclaration,
+	type Node as TSNode,
+	type ExportDeclaration as TSExportDeclaration
+} from "typescript"
+
 import type {Instance} from "#~src/export/Instance.d.mts"
 import type {Export} from "#~src/export/Export.d.mts"
 import {filterNodes} from "#~src/export/filterNodes.mts"
@@ -79,13 +87,13 @@ export function implementation(
 
 		const declaration = symbol.declarations[0]
 
-		if (ts.isExportSpecifier(declaration)) {
+		if (tsIsExportSpecifier(declaration)) {
 			is_type_only ||= declaration.isTypeOnly
-		} else if (ts.isTypeAliasDeclaration(declaration)) {
+		} else if (tsIsTypeAliasDeclaration(declaration)) {
 			is_type_only = true
 		}
 
-		if (declaration.parent && ts.isNamedExports(declaration.parent)) {
+		if (declaration.parent && tsIsNamedExports(declaration.parent)) {
 			for (const element of declaration.parent.elements) {
 				if (symbol.name === element.name.getText(inst.source)) {
 					is_type_only ||= element.isTypeOnly
@@ -93,7 +101,7 @@ export function implementation(
 			}
 		}
 
-		if (declaration.parent?.parent && ts.isExportDeclaration(declaration.parent.parent)) {
+		if (declaration.parent?.parent && tsIsExportDeclaration(declaration.parent.parent)) {
 			is_type_only ||= declaration.parent.parent.isTypeOnly
 		}
 
@@ -119,8 +127,8 @@ export function implementation(
 		// "some-package" to know what exports it will produce
 		//
 		const starExportNodes = filterNodes(
-			inst.source, (node: ts.Node) => {
-				if (!ts.isExportDeclaration(node)) return false
+			inst.source, (node: TSNode) => {
+				if (!tsIsExportDeclaration(node)) return false
 				if (!node.moduleSpecifier) return false
 
 				// we are only interested in exports
@@ -129,7 +137,7 @@ export function implementation(
 
 				return true
 			}
-		) as ts.ExportDeclaration[]
+		) as TSExportDeclaration[]
 
 		for (const node of starExportNodes) {
 			const moduleName = node.moduleSpecifier!.getText(inst.source).slice(1, -1)

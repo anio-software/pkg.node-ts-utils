@@ -1,30 +1,36 @@
-import ts from "typescript"
+import {
+	type Node as TSNode,
+	isTypeQueryNode as tsIsTypeQueryNode,
+	isTypeReferenceNode as tsIsTypeReferenceNode,
+	type TypeReferenceNode as TSTypeReferenceNode,
+	type TypeQueryNode as TSTypeQueryNode
+} from "typescript"
 import type {Instance} from "./Instance.d.mts"
 import {filterNodes} from "./filterNodes.mts"
 
 export function getTypesUsed(
 	inst: Instance,
-	node: ts.Node
+	node: TSNode
 ) : string[] {
 	const list : string[] = []
 
 	const nodes = filterNodes(
-		node, (node: ts.Node) => {
+		node, (node: TSNode) => {
 			// catch "typeof X"
-			if (ts.isTypeQueryNode(node)) return true
+			if (tsIsTypeQueryNode(node)) return true
 
-			return ts.isTypeReferenceNode(node)
+			return tsIsTypeReferenceNode(node)
 		}
-	) as (ts.TypeReferenceNode|ts.TypeQueryNode)[]
+	) as (TSTypeReferenceNode|TSTypeQueryNode)[]
 
 	for (const node of nodes) {
-		if (ts.isTypeReferenceNode(node)) {
+		if (tsIsTypeReferenceNode(node)) {
 			const sym = inst.checker.getTypeAtLocation(node)
 
 			if (sym.isTypeParameter()) continue
 
 			list.push(node.typeName.getText(inst.source))
-		} else if (ts.isTypeQueryNode(node)) {
+		} else if (tsIsTypeQueryNode(node)) {
 			const identifier = node.exprName.getText(inst.source)
 
 			list.push(`typeof:${identifier}`)

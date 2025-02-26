@@ -1,9 +1,15 @@
-import ts from "typescript"
+import {
+	type Program as TSProgram,
+	type SourceFile as TSSourceFile,
+	type TypeChecker as TSTypeChecker,
+	type CompilerHost as TSCompilerHost,
+	type CompilerOptions as TSCompilerOptions
+} from "typescript"
 
 export type Instance = {
-	program: ts.Program
-	source: ts.SourceFile,
-	checker: ts.TypeChecker
-	compilerHost: ts.CompilerHost
-	compilerOptions: ts.CompilerOptions
+	program: TSProgram
+	source: TSSourceFile,
+	checker: TSTypeChecker
+	compilerHost: TSCompilerHost
+	compilerOptions: TSCompilerOptions
 }

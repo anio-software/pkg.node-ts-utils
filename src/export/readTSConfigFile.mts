@@ -1,4 +1,8 @@
-import ts from "typescript"
+import {
+	readConfigFile as tsReadConfigFile,
+	sys as tsSys,
+	convertCompilerOptionsFromJson as tsConvertCompilerOptionsFromJson
+} from "typescript"
 
 export function readTSConfigFile(
 	tsconfig_path: string,
@@ -7,11 +11,11 @@ export function readTSConfigFile(
 	// Don't use JSON.parse to parse the config file
 	// because TypeScript configs are allowed to have
 	// comments in them.
-	const tsconfig = ts.readConfigFile(
-		tsconfig_path, ts.sys.readFile
+	const tsconfig = tsReadConfigFile(
+		tsconfig_path, tsSys.readFile
 	).config
 
-	const {errors, options} = ts.convertCompilerOptionsFromJson(
+	const {errors, options} = tsConvertCompilerOptionsFromJson(
 		tsconfig.compilerOptions, project_root
 	)
 

@@ -1,4 +1,12 @@
-import ts from "typescript"
+import {
+	type Node as TSNode,
+	isImportDeclaration as tsIsImportDeclaration,
+	type ImportDeclaration as TSImportDeclaration,
+	type ImportClause as TSImportClause,
+	isNamedImports as tsIsNamedImports,
+	isNamespaceImport as tsIsNamespaceImport
+}from "typescript"
+
 import type {Instance} from "./Instance.d.mts"
 import type {Import} from "./Import.d.mts"
 import {filterNodes} from "./filterNodes.mts"
@@ -9,21 +17,21 @@ export function getImports(
 	const list : Import[] = []
 	const {source} = inst
 
-	const nodes = filterNodes(source, (node: ts.Node) => {
-		if (!ts.isImportDeclaration(node)) return false
+	const nodes = filterNodes(source, (node: TSNode) => {
+		if (!tsIsImportDeclaration(node)) return false
 		if (!node.importClause) return false
 
 		return true
-	}) as ts.ImportDeclaration[]
+	}) as TSImportDeclaration[]
 
 	for (const node of nodes) {
 		const module_name = node.moduleSpecifier.getText(
 			source
 		).toString().slice(1).slice(0, -1)
 
-		const clause : ts.ImportClause = node.importClause!
+		const clause : TSImportClause = node.importClause!
 
-		if (clause.namedBindings && ts.isNamedImports(clause.namedBindings)) {
+		if (clause.namedBindings && tsIsNamedImports(clause.namedBindings)) {
 			for (const element of clause.namedBindings.elements) {
 				const identifier = element.name.getText(source)
 
@@ -47,7 +55,7 @@ export function getImports(
 					definition: `import ${is_type_only ? "type " : ""}{${definition_clause}} from "${module_name}"`
 				})
 			}
-		} else if (clause.namedBindings && ts.isNamespaceImport(clause.namedBindings)) {
+		} else if (clause.namedBindings && tsIsNamespaceImport(clause.namedBindings)) {
 			const identifier = clause.namedBindings.name.getText(source)
 
 			list.push({

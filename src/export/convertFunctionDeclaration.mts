@@ -1,11 +1,15 @@
-import ts from "typescript"
+import {
+	type FunctionDeclaration as TSFunctionDeclaration,
+	type SourceFile as TSSourceFile
+} from "typescript"
+
 import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mts"
 import type {FunctionDeclaration} from "./FunctionDeclaration.d.mts"
 
 export function convertFunctionDeclaration(
-	fn: ts.FunctionDeclaration
+	fn: TSFunctionDeclaration
 ) : FunctionDeclaration {
-	const source : ts.SourceFile = fn.getSourceFile()
+	const source : TSSourceFile = fn.getSourceFile()
 
 	const function_name : string|null = fn.name ? fn.name.getText(source) : null
 

@@ -12,8 +12,8 @@ type Ret = {
 	getExportByName: (name: string) => Export | null;
 	exportNames: string[];
 }
-/* couldn't find a user defined type named 'ts.ExportDeclaration' at the top level */
-/* couldn't find a user defined type named 'ts.Node' at the top level */
+import type {ExportDeclaration as TSExportDeclaration} from "typescript"
+import type {Node as TSNode} from "typescript"
 // ^^^--- types needed for implementation
 
 declare function getExportsRecursive(

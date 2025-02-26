@@ -1,11 +1,13 @@
-import ts from "typescript"
+import {
+	type ImportDeclaration as TSImportDeclaration
+} from "typescript"
 
 export type Import = ({
 	identifier: string,
 	module_name: string
 	is_type_only: boolean,
 	definition: string,
-	node: ts.ImportDeclaration
+	node: TSImportDeclaration
 }) & ({
 	kind: "named",
 	import_name: string

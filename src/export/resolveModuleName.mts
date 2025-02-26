@@ -1,18 +1,24 @@
-import ts from "typescript"
+import {
+	ScriptTarget as tsScriptTarget,
+	ModuleKind as tsModuleKind,
+	ModuleResolutionKind as tsModuleResolutionKind,
+	resolveModuleName as tsResolveModuleName,
+	sys as tsSys
+} from "typescript"
 
 export function resolveModuleName(
 	moduleName: string, filePath: string
 ) {
 	const compilerOptions = {
-		target: ts.ScriptTarget.ESNext,
-		module: ts.ModuleKind.NodeNext,
-		ModuleResolutionKind: ts.ModuleResolutionKind.NodeNext
+		target: tsScriptTarget.ESNext,
+		module: tsModuleKind.NodeNext,
+		ModuleResolutionKind: tsModuleResolutionKind.NodeNext
 	}
 
-	return ts.resolveModuleName(
+	return tsResolveModuleName(
 		moduleName,
 		filePath,
 		compilerOptions,
-		ts.sys
+		tsSys
 	).resolvedModule
 }

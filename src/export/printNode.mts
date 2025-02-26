@@ -1,4 +1,9 @@
-import ts from "typescript"
+import {
+	type Node as TSNode,
+	createPrinter as tsCreatePrinter,
+	NewLineKind as tsNewLineKind,
+	EmitHint as tsEmitHint
+} from "typescript"
 
 function _convertSpacesToTabs(
 	str: string
@@ -25,17 +30,17 @@ function _convertSpacesToTabs(
 }
 
 export function printNode(
-	node: ts.Node
+	node: TSNode
 ) : string {
-	const printer = ts.createPrinter({
-		newLine: ts.NewLineKind.LineFeed,
+	const printer = tsCreatePrinter({
+		newLine: tsNewLineKind.LineFeed,
 		removeComments: false,
 		omitTrailingSemicolon: true
 	})
 
 	return _convertSpacesToTabs(
 		printer.printNode(
-			ts.EmitHint.Unspecified,
+			tsEmitHint.Unspecified,
 			node,
 			node.getSourceFile()
 		)

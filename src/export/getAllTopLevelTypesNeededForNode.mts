@@ -1,4 +1,6 @@
-import ts from "typescript"
+import {
+	type Node as TSNode
+} from "typescript"
 import type {Instance} from "./Instance.d.mts"
 import type {TopLevelType} from "./TopLevelType.d.mts"
 import {getTypesUsed} from "./getTypesUsed.mts"
@@ -8,7 +10,7 @@ import type {Import} from "./Import.d.mts"
 
 export function getAllTopLevelTypesNeededForNode(
 	inst: Instance,
-	node: ts.Node,
+	node: TSNode,
 	ignored_types: string[] = []
 ) : {name: string, definition: string}[] {
 	const top_level_types = getTopLevelTypes(inst, true)

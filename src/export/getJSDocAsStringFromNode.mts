@@ -1,11 +1,15 @@
-import ts from "typescript"
+import {
+	type Node as TSNode,
+	type SourceFile as TSSourceFile,
+	getJSDocCommentsAndTags as tsGetJSDocCommentsAndTags
+} from "typescript"
 
 export function getJSDocAsStringFromNode(
-	node: ts.Node
+	node: TSNode
 ) : string {
-	const source : ts.SourceFile = node.getSourceFile()
+	const source : TSSourceFile = node.getSourceFile()
 
-	const jsdoc = ts.getJSDocCommentsAndTags(node)
+	const jsdoc = tsGetJSDocCommentsAndTags(node)
 	const str = jsdoc.length ? jsdoc.map(doc => doc.getText(source)).join("\n") : ""
 
 	if (!str.includes("\n")) {

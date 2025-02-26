@@ -1,22 +1,26 @@
-import ts from "typescript"
+import {
+	type Node as TSNode,
+	visitEachChild as tsVisitEachChild,
+	visitNode as tsVisitNode
+} from "typescript"
 
 export function mapNodes<T>(
-	entry: ts.Node,
-	map: (node: ts.Node) => T|undefined
+	entry: TSNode,
+	map: (node: TSNode) => T|undefined
 ) : T[] {
 	const result : T[] = []
 
-	function visitor(node: ts.Node) {
+	function visitor(node: TSNode) {
 		const mapped_node = map(node)
 
 		if (mapped_node !== undefined) {
 			result.push(mapped_node)
 		}
 
-		return ts.visitEachChild(node, visitor, undefined)
+		return tsVisitEachChild(node, visitor, undefined)
 	}
 
-	ts.visitNode(entry, visitor)
+	tsVisitNode(entry, visitor)
 
 	return result
 }

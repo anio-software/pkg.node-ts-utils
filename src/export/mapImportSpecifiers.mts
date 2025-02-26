@@ -25,26 +25,26 @@ function transformerFactory(mapper: Mapper) {
 						rootNode as TSSourceFile
 					).toString().slice(1).slice(0, -1)
 
-					const new_import_specifier = mapper(importSpecifier)
+					const newImportSpecifier = mapper(importSpecifier)
 
 					return context.factory.createImportDeclaration(
 						newNode.modifiers,
 						newNode.importClause,
-						tsFactory.createStringLiteral(new_import_specifier),
+						tsFactory.createStringLiteral(newImportSpecifier),
 						newNode.attributes
 					)
 				} else if (tsIsExportDeclaration(newNode) && newNode.moduleSpecifier) {
-					const import_specifier = newNode.moduleSpecifier.getText(
+					const importSpecifier = newNode.moduleSpecifier.getText(
 						rootNode as TSSourceFile
 					).toString().slice(1).slice(0, -1)
 
-					const new_import_specifier = mapper(import_specifier)
+					const newImportSpecifier = mapper(importSpecifier)
 
 					return context.factory.createExportDeclaration(
 						newNode.modifiers,
 						newNode.isTypeOnly,
 						newNode.exportClause,
-						tsFactory.createStringLiteral(new_import_specifier),
+						tsFactory.createStringLiteral(newImportSpecifier),
 						newNode.attributes
 					)
 				}

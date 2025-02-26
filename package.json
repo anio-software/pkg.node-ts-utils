@@ -16,7 +16,7 @@
   },
   "type": "module",
   "devDependencies": {
-    "@fourtune/realm-js": "^0.31010.0",
+    "@fourtune/realm-js": "^1.0.1",
     "@types/node": "^22.7.7",
     "fourtune": "^0.30000.0"
   },

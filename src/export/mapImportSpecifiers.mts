@@ -12,7 +12,12 @@ import {
 
 import type {Instance} from "./Instance.d.mts"
 
-type Mapper = (importSpecifier: string) => string
+type Mapper = (
+	importSpecifier: string,
+	meta: {
+		isTypeOnly: boolean
+	}
+) => string
 
 function transformerFactory(mapper: Mapper) {
 	return function transformer(context: TSTransformationContext) {
@@ -25,7 +30,12 @@ function transformerFactory(mapper: Mapper) {
 						rootNode as TSSourceFile
 					).toString().slice(1).slice(0, -1)
 
-					const newImportSpecifier = mapper(importSpecifier)
+					const meta = {
+						// todo: check importClause members
+						isTypeOnly: newNode.importClause?.isTypeOnly === true
+					}
+
+					const newImportSpecifier = mapper(importSpecifier, meta)
 
 					return context.factory.createImportDeclaration(
 						newNode.modifiers,
@@ -38,7 +48,12 @@ function transformerFactory(mapper: Mapper) {
 						rootNode as TSSourceFile
 					).toString().slice(1).slice(0, -1)
 
-					const newImportSpecifier = mapper(importSpecifier)
+					const meta = {
+						// todo: check members
+						isTypeOnly: newNode.isTypeOnly
+					}
+
+					const newImportSpecifier = mapper(importSpecifier, meta)
 
 					return context.factory.createExportDeclaration(
 						newNode.modifiers,

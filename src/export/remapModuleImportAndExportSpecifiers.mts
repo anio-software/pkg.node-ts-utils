@@ -53,10 +53,10 @@ function transformerFactory(sourceFile: ts.SourceFile, mapper: Mapper) {
 export function remapModuleImportAndExportSpecifiers(
 	sourceFile: ts.SourceFile,
 	mapper: Mapper
-): ts.Node {
+): ts.SourceFile {
 	const transformer = transformerFactory(sourceFile, mapper)
 
 	const {transformed} = ts.transform(sourceFile, [transformer])
 
-	return transformed[0]
+	return transformed[0] as ts.SourceFile
 }

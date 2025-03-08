@@ -4,7 +4,7 @@ export type Mapper = (
 	declaration: ts.ImportDeclaration|ts.ExportDeclaration
 ) => string|undefined
 
-function transformerFactory(mapper: Mapper) {
+function transformerFactory(sourceFile: ts.SourceFile, mapper: Mapper) {
 	return function transformer(context: ts.TransformationContext) {
 		return (rootNode: ts.Node) => {
 			const visit = (node: ts.Node) : ts.Node => {
@@ -19,7 +19,8 @@ function transformerFactory(mapper: Mapper) {
 				if (!newNode.moduleSpecifier) return newNode
 
 				const defaultImportSpecifier = newNode.moduleSpecifier.getText(
-					newNode.getSourceFile()
+					// newNode.getSourceFile() does not work for some reason
+					sourceFile
 				).slice(1, -1)
 
 				const newImportSpecifier = mapper(
@@ -53,7 +54,7 @@ export function remapModuleImportAndExportSpecifiers(
 	sourceFile: ts.SourceFile,
 	mapper: Mapper
 ): ts.Node {
-	const transformer = transformerFactory(mapper)
+	const transformer = transformerFactory(sourceFile, mapper)
 
 	const {transformed} = ts.transform(sourceFile, [transformer])
 

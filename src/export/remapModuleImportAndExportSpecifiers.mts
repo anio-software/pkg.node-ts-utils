@@ -7,7 +7,7 @@ export type Mapper = (
 function transformerFactory(sourceFile: ts.SourceFile, mapper: Mapper) {
 	return function transformer(context: ts.TransformationContext) {
 		return (rootNode: ts.Node) => {
-			const visit = (node: ts.Node) : ts.Node => {
+			const visit = (node: ts.Node): ts.VisitResult<ts.Node> => {
 				// todo rename variable
 				const newNode = ts.visitEachChild(node, visit, context)
 

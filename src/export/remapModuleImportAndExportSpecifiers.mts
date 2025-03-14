@@ -1,5 +1,5 @@
 import ts from "typescript"
-import {astTransform} from "./astTransform.mts"
+import type {Transformer} from "./astTransform.mts"
 import {printNode} from "./printNode.mts"
 
 type Mapper = (
@@ -8,10 +8,9 @@ type Mapper = (
 ) => string|undefined
 
 export function remapModuleImportAndExportSpecifiers(
-	source: ts.SourceFile,
 	mapper: Mapper
-): ts.SourceFile {
-	return astTransform(source, (node, {factory}) => {
+): Transformer {
+	return (node, {factory}) => {
 		if (
 		    !ts.isImportDeclaration(node) &&
 		    !ts.isExportDeclaration(node)
@@ -42,5 +41,5 @@ export function remapModuleImportAndExportSpecifiers(
 			newModuleSpecifier,
 			node.attributes
 		)
-	})
+	}
 }

@@ -2,7 +2,7 @@ import ts from "typescript"
 import {getJSDocAsFormattedStringFromNode} from "./getJSDocAsFormattedStringFromNode.mts"
 import {printNode} from "./printNode.mts"
 
-export function convertTypeAliasDeclarationToString(
+export function getTypeAliasDeclarationAsFormattedString(
 	node: ts.TypeAliasDeclaration,
 	options?: {
 		newTypeName?: string

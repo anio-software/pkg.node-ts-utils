@@ -1,5 +1,5 @@
 import ts from "typescript"
-import {getJSDocAsStringFromNode} from "./getJSDocAsStringFromNode.mts"
+import {getJSDocAsFormattedStringFromNode} from "./getJSDocAsFormattedStringFromNode.mts"
 import {printNode} from "./printNode.mts"
 
 export function convertTypeAliasDeclarationToString(
@@ -26,7 +26,7 @@ export function convertTypeAliasDeclarationToString(
 		node.type
 	)
 
-	const jsdoc = getJSDocAsStringFromNode(node)
+	const jsdoc = getJSDocAsFormattedStringFromNode(node)
 
 	if (jsdoc.length) ret += `${jsdoc}\n`
 

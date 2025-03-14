@@ -1,6 +1,6 @@
 import ts from "typescript"
 
-export function getJSDocAsStringFromNode(node: ts.Node): string {
+export function getJSDocAsFormattedStringFromNode(node: ts.Node): string {
 	const source = node.getSourceFile()
 	const jsdoc = ts.getJSDocCommentsAndTags(node)
 

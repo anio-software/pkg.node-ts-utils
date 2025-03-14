@@ -1,6 +1,6 @@
 import ts from "typescript"
 
-type Transformer = (
+export type Transformer = (
 	node: ts.Node,
 	context: ts.TransformationContext
 ) => ts.VisitResult<ts.Node>

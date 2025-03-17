@@ -5,13 +5,16 @@ export type Transformer = (
 	context: ts.TransformationContext
 ) => ts.VisitResult<ts.Node>
 
-function factory(transformer: Transformer) {
+function factory(
+	transformer: Transformer,
+	existingContext: ts.TransformationContext|undefined
+) {
 	return function(context: ts.TransformationContext) {
 		return (rootNode: ts.Node) => {
 			const visit = (node: ts.Node): ts.VisitResult<ts.Node> => {
 				return transformer(
 					ts.visitEachChild(node, visit, context),
-					context
+					existingContext ?? context
 				)
 			}
 
@@ -22,11 +25,14 @@ function factory(transformer: Transformer) {
 
 export function astTransform<T extends ts.Node>(
 	rootNode: T,
-	transformer: Transformer|Transformer[]
+	transformer: Transformer|Transformer[],
+	existingContext?: ts.TransformationContext
 ): T {
 	const transformers = (
 		Array.isArray(transformer) ? transformer : [transformer]
-	).map(factory)
+	).map(fn => {
+		return factory(fn, existingContext)
+	})
 
 	const {transformed} = ts.transform(rootNode, transformers)
 

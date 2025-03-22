@@ -11,9 +11,9 @@ function factory(
 ) {
 	return function(context: ts.TransformationContext) {
 		return (rootNode: ts.Node) => {
-			const visit = (node: ts.Node): ts.VisitResult<ts.Node> => {
+			const visit = (oldNode: ts.Node): ts.VisitResult<ts.Node> => {
 				return transformer(
-					ts.visitEachChild(node, visit, context),
+					ts.visitEachChild(oldNode, visit, context),
 					existingContext ?? context
 				)
 			}

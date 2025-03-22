@@ -12,10 +12,12 @@ function factory(
 	return function(context: ts.TransformationContext) {
 		return (rootNode: ts.Node) => {
 			const visit = (oldNode: ts.Node): ts.VisitResult<ts.Node> => {
-				return transformer(
+				const newNode = transformer(
 					ts.visitEachChild(oldNode, visit, context),
 					existingContext ?? context
 				)
+
+				return newNode
 			}
 
 			return ts.visitNode(rootNode, visit)

@@ -10,36 +10,36 @@ type Mapper = (
 export function remapModuleImportAndExportSpecifiers(
 	mapper: Mapper
 ): Transformer {
-	return (node, {factory}) => {
+	return (oldNode, {factory}) => {
 		if (
-		    !ts.isImportDeclaration(node) &&
-		    !ts.isExportDeclaration(node)
+		    !ts.isImportDeclaration(oldNode) &&
+		    !ts.isExportDeclaration(oldNode)
 		   ) {
-			return node
+			return oldNode
 		}
 
-		if (!node.moduleSpecifier) return node
+		if (!oldNode.moduleSpecifier) return oldNode
 
-		const defaultModuleSpecifier = printNode(node.moduleSpecifier).slice(1, -1)
+		const defaultModuleSpecifier = printNode(oldNode.moduleSpecifier).slice(1, -1)
 		const newModuleSpecifier = factory.createStringLiteral(
-			mapper(defaultModuleSpecifier, node) ?? defaultModuleSpecifier
+			mapper(defaultModuleSpecifier, oldNode) ?? defaultModuleSpecifier
 		)
 
-		if (ts.isImportDeclaration(node)) {
+		if (ts.isImportDeclaration(oldNode)) {
 			return factory.createImportDeclaration(
-				node.modifiers,
-				node.importClause,
+				oldNode.modifiers,
+				oldNode.importClause,
 				newModuleSpecifier,
-				node.attributes
+				oldNode.attributes
 			)
 		}
 
 		return factory.createExportDeclaration(
-			node.modifiers,
-			node.isTypeOnly,
-			node.exportClause,
+			oldNode.modifiers,
+			oldNode.isTypeOnly,
+			oldNode.exportClause,
 			newModuleSpecifier,
-			node.attributes
+			oldNode.attributes
 		)
 	}
 }

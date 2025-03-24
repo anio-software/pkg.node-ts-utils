@@ -27,9 +27,13 @@ export function printNode(node: ts.Node): string {
 		omitTrailingSemicolon: true
 	})
 
+	const emitHint: ts.EmitHint = ts.isSourceFile(
+		node
+	) ? ts.EmitHint.SourceFile : ts.EmitHint.Unspecified
+
 	return _convertSpacesToTabs(
 		printer.printNode(
-			ts.EmitHint.Unspecified,
+			emitHint,
 			node,
 			node.getSourceFile()
 		)

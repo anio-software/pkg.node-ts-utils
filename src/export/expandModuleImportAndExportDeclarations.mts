@@ -4,13 +4,13 @@ import {expandImportDeclaration} from "#~src/expandImportDeclaration.mts"
 import {expandExportDeclaration} from "#~src/expandExportDeclaration.mts"
 
 export function expandModuleImportAndExportDeclarations(): Transformer {
-	return (node, {factory}) => {
-		if (ts.isImportDeclaration(node)) {
-			return expandImportDeclaration(node, factory)
-		} else if (ts.isExportDeclaration(node)) {
-			return expandExportDeclaration(node, factory)
+	return (oldNode, {factory}) => {
+		if (ts.isImportDeclaration(oldNode)) {
+			return expandImportDeclaration(oldNode, factory)
+		} else if (ts.isExportDeclaration(oldNode)) {
+			return expandExportDeclaration(oldNode, factory)
 		}
 
-		return node
+		return oldNode
 	}
 }

@@ -1,5 +1,4 @@
 import ts from "typescript"
-import {attachComments} from "./attachComments.mts"
 
 export type Transformer = (
 	node: ts.Node,
@@ -13,20 +12,10 @@ function factory(
 	return function(context: ts.TransformationContext) {
 		return (rootNode: ts.Node) => {
 			const visit = (oldNode: ts.Node): ts.VisitResult<ts.Node> => {
-				const newNode = transformer(
+				return transformer(
 					ts.visitEachChild(oldNode, visit, context),
 					existingContext ?? context
 				)
-
-				// if the node changed
-				// attach the comments from the old node to the new one
-				if ("kind" in newNode) {
-					if (newNode !== oldNode) {
-						attachComments(oldNode, newNode)
-					}
-				}
-
-				return newNode
 			}
 
 			return ts.visitNode(rootNode, visit)

@@ -1,6 +1,7 @@
 import ts from "typescript"
 import type {Transformer} from "./astTransform.mts"
 import {printNode} from "./printNode.mts"
+import {copyComments} from "#~src/copyComments.mts"
 
 type Mapper = (
 	moduleSpecifier: string,
@@ -26,20 +27,20 @@ export function remapModuleImportAndExportSpecifiers(
 		)
 
 		if (ts.isImportDeclaration(oldNode)) {
-			return factory.createImportDeclaration(
+			return copyComments(oldNode, factory.createImportDeclaration(
 				oldNode.modifiers,
 				oldNode.importClause,
 				newModuleSpecifier,
 				oldNode.attributes
-			)
+			))
 		}
 
-		return factory.createExportDeclaration(
+		return copyComments(oldNode, factory.createExportDeclaration(
 			oldNode.modifiers,
 			oldNode.isTypeOnly,
 			oldNode.exportClause,
 			newModuleSpecifier,
 			oldNode.attributes
-		)
+		))
 	}
 }

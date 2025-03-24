@@ -1,4 +1,4 @@
-import type {Transformer} from "./astTransform.mts"
+import type {Transformer} from "./Transformer.d.mts"
 import {remapModuleImportAndExportSpecifiers} from "./remapModuleImportAndExportSpecifiers.mts"
 
 type Aliases = Record<string, string>

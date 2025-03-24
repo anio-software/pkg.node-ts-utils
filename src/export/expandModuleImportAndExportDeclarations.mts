@@ -1,5 +1,5 @@
 import ts from "typescript"
-import type {Transformer} from "./astTransform.mts"
+import type {Transformer} from "./Transformer.d.mts"
 import {expandImportDeclaration} from "#~src/expandImportDeclaration.mts"
 import {expandExportDeclaration} from "#~src/expandExportDeclaration.mts"
 import {copyComments} from "#~src/copyComments.mts"

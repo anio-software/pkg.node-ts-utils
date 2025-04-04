@@ -1,5 +1,5 @@
 import ts from "typescript"
-import {randomIdentifierSync} from "@aniojs/random-ident"
+import {_createSyntheticSourceFile} from "#~src/_createSyntheticSourceFile.mts"
 
 function _convertSpacesToTabs(str: string): string {
 	const lines: string[] = []
@@ -41,17 +41,9 @@ export function printNode(node: ts.Node): string {
 		const nodeSourceFile = node.getSourceFile()
 
 		if (typeof nodeSourceFile === "undefined") {
-			const syntheticSourceFileName = `synthetic${randomIdentifierSync(32)}.mts`
-
 			// todo: log error/warning
 
-			return ts.createSourceFile(
-				syntheticSourceFileName,
-				"",
-				ts.ScriptTarget.Latest,
-				true,
-				ts.ScriptKind.TS
-			)
+			return _createSyntheticSourceFile("")
 		}
 
 		return nodeSourceFile

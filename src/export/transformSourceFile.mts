@@ -9,6 +9,8 @@ function transformAndCreateFreshSourceFile(
 	transformer: Transformer,
 	context: ts.TransformationContext|undefined
 ): ts.SourceFile {
+	const isTSX = inputSourceFile.fileName.endsWith(".tsx")
+
 	const transformedSourceFile = astTransform(inputSourceFile, transformer, context)
 	const sourceText = ts.createPrinter({
 		newLine: ts.NewLineKind.LineFeed,
@@ -16,7 +18,8 @@ function transformAndCreateFreshSourceFile(
 		omitTrailingSemicolon: true
 	}).printFile(transformedSourceFile)
 
-	const syntheticSourceFileName = `synthetic${randomIdentifierSync(32)}.mts`
+	// NB: there is no such thing as ".mtsx"
+	const syntheticSourceFileName = `synthetic${randomIdentifierSync(32)}${isTSX ? ".tsx" : ".mts"}`
 
 	return ts.createSourceFile(
 		// preserve directory hierarchy
@@ -24,7 +27,7 @@ function transformAndCreateFreshSourceFile(
 		sourceText,
 		ts.ScriptTarget.Latest,
 		true,
-		ts.ScriptKind.TS
+		isTSX ? ts.ScriptKind.TSX : ts.ScriptKind.TS
 	)
 }
 

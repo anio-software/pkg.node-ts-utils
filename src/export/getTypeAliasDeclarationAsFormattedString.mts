@@ -17,7 +17,9 @@ export function getTypeAliasDeclarationAsFormattedString(
 		throw new Error(`This function can only work with nodes that belong to a source file.`)
 	}
 
-	const tmpSourceFile = _createSyntheticSourceFile(printNode(node))
+	const tmpSourceFile = _createSyntheticSourceFile(
+		printNode(node), nodeSourceFile.fileName.endsWith(".tsx")
+	)
 
 	// marker to check if we have more than one ts type alias declaration node
 	let transformedTypeNode = false

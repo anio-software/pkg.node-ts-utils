@@ -43,7 +43,7 @@ export function printNode(node: ts.Node): string {
 		if (typeof nodeSourceFile === "undefined") {
 			// todo: log error/warning
 
-			return _createSyntheticSourceFile("")
+			return _createSyntheticSourceFile("", false)
 		}
 
 		return nodeSourceFile

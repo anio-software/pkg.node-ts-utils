@@ -22,6 +22,7 @@ export function remapModuleImportAndExportSpecifiers(
 
 		if (!oldNode.moduleSpecifier) return oldNode
 
+		// todo: i think this includes comments :-/
 		const defaultModuleSpecifier = printNode(oldNode.moduleSpecifier).slice(1, -1)
 		const removeSymbol = Symbol()
 		const mapperResult = mapper(defaultModuleSpecifier, oldNode, () => {

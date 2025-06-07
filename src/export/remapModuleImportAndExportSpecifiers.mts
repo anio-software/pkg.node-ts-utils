@@ -5,8 +5,9 @@ import {copyComments} from "#~src/copyComments.mts"
 
 type Mapper = (
 	moduleSpecifier: string,
-	declaration: ts.ImportDeclaration | ts.ExportDeclaration
-) => string|undefined
+	declaration: ts.ImportDeclaration | ts.ExportDeclaration,
+	remove: () => symbol
+) => string|undefined|symbol
 
 export function remapModuleImportAndExportSpecifiers(
 	mapper: Mapper
@@ -22,7 +23,19 @@ export function remapModuleImportAndExportSpecifiers(
 		if (!oldNode.moduleSpecifier) return oldNode
 
 		const defaultModuleSpecifier = printNode(oldNode.moduleSpecifier).slice(1, -1)
-		const mapperResult = mapper(defaultModuleSpecifier, oldNode)
+		const removeSymbol = Symbol()
+		const mapperResult = mapper(defaultModuleSpecifier, oldNode, () => {
+			return removeSymbol
+		})
+
+		if (typeof mapperResult === "symbol") {
+			if (mapperResult === removeSymbol) {
+				return []
+			} else {
+				throw new Error(`mapper returned unknown symbol.`)
+			}
+		}
+
 		const newModuleSpecifier = factory.createStringLiteral(
 			mapperResult ?? defaultModuleSpecifier
 		)

@@ -22,8 +22,9 @@ export function remapModuleImportAndExportSpecifiers(
 		if (!oldNode.moduleSpecifier) return oldNode
 
 		const defaultModuleSpecifier = printNode(oldNode.moduleSpecifier).slice(1, -1)
+		const mapperResult = mapper(defaultModuleSpecifier, oldNode)
 		const newModuleSpecifier = factory.createStringLiteral(
-			mapper(defaultModuleSpecifier, oldNode) ?? defaultModuleSpecifier
+			mapperResult ?? defaultModuleSpecifier
 		)
 
 		if (ts.isImportDeclaration(oldNode)) {

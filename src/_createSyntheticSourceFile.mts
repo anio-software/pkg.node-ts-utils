@@ -4,8 +4,7 @@ import {randomIdentifierSync} from "@aniojs/random-ident"
 export function _createSyntheticSourceFile(
 	code: string, isTSX: boolean
 ): ts.SourceFile {
-	// NB: there is no such thing as ".mtsx"
-	const syntheticSourceFileName = `synthetic${randomIdentifierSync(32)}${isTSX ? ".tsx" : ".mts"}`
+	const syntheticSourceFileName = `synthetic${randomIdentifierSync(32)}${isTSX ? ".tsx" : ".ts"}`
 
 	return ts.createSourceFile(
 		syntheticSourceFileName,

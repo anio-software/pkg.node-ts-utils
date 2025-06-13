@@ -18,8 +18,7 @@ function transformAndCreateFreshSourceFile(
 		omitTrailingSemicolon: true
 	}).printFile(transformedSourceFile)
 
-	// NB: there is no such thing as ".mtsx"
-	const syntheticSourceFileName = `synthetic${randomIdentifierSync(32)}${isTSX ? ".tsx" : ".mts"}`
+	const syntheticSourceFileName = `synthetic${randomIdentifierSync(32)}${isTSX ? ".tsx" : ".ts"}`
 
 	return ts.createSourceFile(
 		// preserve directory hierarchy

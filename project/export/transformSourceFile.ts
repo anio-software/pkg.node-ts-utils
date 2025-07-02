@@ -1,7 +1,7 @@
 import ts from "typescript"
 import path from "node:path"
-import type {Transformer} from "./Transformer.d.mts"
-import {astTransform} from "#~src/astTransform.mts"
+import type {Transformer} from "./Transformer.ts"
+import {astTransform} from "#~src/astTransform.ts"
 import {randomIdentifierSync} from "@aniojs/random-ident"
 
 function transformAndCreateFreshSourceFile(

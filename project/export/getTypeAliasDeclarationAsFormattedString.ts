@@ -1,8 +1,8 @@
 import ts from "typescript"
-import {getJSDocAsFormattedStringFromNode} from "./getJSDocAsFormattedStringFromNode.mts"
-import {printNode} from "./printNode.mts"
-import {_createSyntheticSourceFile} from "#~src/_createSyntheticSourceFile.mts"
-import {transformSourceFile} from "./transformSourceFile.mts"
+import {getJSDocAsFormattedStringFromNode} from "./getJSDocAsFormattedStringFromNode.ts"
+import {printNode} from "./printNode.ts"
+import {_createSyntheticSourceFile} from "#~src/_createSyntheticSourceFile.ts"
+import {transformSourceFile} from "./transformSourceFile.ts"
 
 export function getTypeAliasDeclarationAsFormattedString(
 	node: ts.TypeAliasDeclaration,

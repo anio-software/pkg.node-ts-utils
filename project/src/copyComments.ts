@@ -1,6 +1,6 @@
 import ts from "typescript"
-import {getNodeComments} from "#~src/export/getNodeComments.mts"
-import {attachCommentToNode} from "#~src/export/attachCommentToNode.mts"
+import {getNodeComments} from "#~src/export/getNodeComments.ts"
+import {attachCommentToNode} from "#~src/export/attachCommentToNode.ts"
 
 export function copyComments<
 	T extends ts.VisitResult<ts.Node>

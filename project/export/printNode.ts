@@ -1,5 +1,5 @@
 import ts from "typescript"
-import {_createSyntheticSourceFile} from "#~src/_createSyntheticSourceFile.mts"
+import {_createSyntheticSourceFile} from "#~src/_createSyntheticSourceFile.ts"
 
 function _convertSpacesToTabs(str: string): string {
 	const lines: string[] = []

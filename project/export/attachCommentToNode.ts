@@ -1,5 +1,5 @@
 import ts from "typescript"
-import type {NodeComment} from "./NodeComment.d.mts"
+import type {NodeComment} from "./NodeComment.ts"
 
 export function attachCommentToNode(node: ts.Node, comment: NodeComment) {
 	const tsKind = (() => {

@@ -1,6 +1,6 @@
 import ts from "typescript"
-import {astFilter} from "./astFilter.mts"
-import {printNode} from "./printNode.mts"
+import {astFilter} from "./astFilter.ts"
+import {printNode} from "./printNode.ts"
 
 //
 // returns all type names referenced in a typescript node

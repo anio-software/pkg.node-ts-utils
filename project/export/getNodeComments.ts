@@ -1,8 +1,8 @@
 import ts from "typescript"
-import {printNode} from "./printNode.mts"
+import {printNode} from "./printNode.ts"
 
-import type {NodeCommentKind} from "./NodeCommentKind.d.mts"
-import type {NodeComment} from "./NodeComment.d.mts"
+import type {NodeCommentKind} from "./NodeCommentKind.ts"
+import type {NodeComment} from "./NodeComment.ts"
 
 function syntaxKindToKind(syntaxKind: ts.SyntaxKind): NodeCommentKind {
 	if (syntaxKind === ts.SyntaxKind.SingleLineCommentTrivia) {

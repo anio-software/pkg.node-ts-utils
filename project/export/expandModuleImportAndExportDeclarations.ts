@@ -1,8 +1,8 @@
 import ts from "typescript"
-import type {Transformer} from "./Transformer.d.mts"
-import {expandImportDeclaration} from "#~src/expandImportDeclaration.mts"
-import {expandExportDeclaration} from "#~src/expandExportDeclaration.mts"
-import {copyComments} from "#~src/copyComments.mts"
+import type {Transformer} from "./Transformer.ts"
+import {expandImportDeclaration} from "#~src/expandImportDeclaration.ts"
+import {expandExportDeclaration} from "#~src/expandExportDeclaration.ts"
+import {copyComments} from "#~src/copyComments.ts"
 
 export function expandModuleImportAndExportDeclarations(): Transformer {
 	return (oldNode, {factory}) => {

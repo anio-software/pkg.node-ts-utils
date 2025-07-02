@@ -1,5 +1,5 @@
-import type {Transformer} from "./Transformer.d.mts"
-import {remapModuleImportAndExportSpecifiers} from "./remapModuleImportAndExportSpecifiers.mts"
+import type {Transformer} from "./Transformer.ts"
+import {remapModuleImportAndExportSpecifiers} from "./remapModuleImportAndExportSpecifiers.ts"
 
 type Aliases = Record<string, string>
 

@@ -1,7 +1,7 @@
 import ts from "typescript"
-import type {Transformer} from "./Transformer.d.mts"
-import {printNode} from "./printNode.mts"
-import {copyComments} from "#~src/copyComments.mts"
+import type {Transformer} from "./Transformer.ts"
+import {printNode} from "./printNode.ts"
+import {copyComments} from "#~src/copyComments.ts"
 
 type Mapper = (
 	moduleSpecifier: string,

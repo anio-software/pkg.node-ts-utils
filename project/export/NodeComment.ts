@@ -1,4 +1,4 @@
-import type {NodeCommentKind} from "./NodeCommentKind.d.mts"
+import type {NodeCommentKind} from "./NodeCommentKind.ts"
 
 export type NodeComment = {
 	kind: NodeCommentKind

@@ -1,3 +1,3 @@
-# @anio-software/ts-utils
+# @anio-software/pkg.node-ts-utils
 
 A collection of TypeScript utilities.

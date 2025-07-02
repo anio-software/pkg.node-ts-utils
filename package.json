@@ -15,5 +15,8 @@
     "@anio-software/enkore.target-js-node": "^0.0.266-canary-91a6ea85-a631800c",
     "@aniojs/node-fs": "^0.5.3",
     "@aniojs/random-ident": "^0.1.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.8.3"
   }
 }

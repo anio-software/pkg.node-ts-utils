@@ -21,6 +21,7 @@ export const config: unknown = defineConfig({
 			},
 
 			externalPackages: ["typescript"],
+			externalTypePackages: ["typescript"],
 
 			publish: [{
 				registry: "anioSoftware"

@@ -1,6 +1,6 @@
 import ts from "typescript"
 
-import type {Transformer} from "#~src/export/Transformer.ts"
+import type {Transformer} from "#~export/Transformer.ts"
 
 function factory(
 	transformer: Transformer,

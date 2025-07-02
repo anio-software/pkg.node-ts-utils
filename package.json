@@ -4,12 +4,6 @@
   "author": "Anio Software <info@anio.software>",
   "description": "",
   "license": "MIT",
-  "exports": {
-    ".": {
-      "types": "./dist/default/index.d.mts",
-      "import": "./dist/default/index.mjs"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/anio-software/pkg.node-ts-utils.git"
@@ -18,14 +12,5 @@
   "devDependencies": {
     "@aniojs/node-fs": "^0.5.3",
     "@aniojs/random-ident": "^0.1.2"
-  },
-  "peerDependencies": {
-    "typescript": "^5.7.2"
-  },
-  "engines": {
-    "node": ">=22.7.x"
-  },
-  "files": [
-    "./dist/"
-  ]
+  }
 }

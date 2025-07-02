@@ -3,7 +3,7 @@
   "type": "module",
   "name": "@anio-software/pkg.node-ts-utils",
   "version": "0.0.0",
-  "description": "",
+  "description": "Utilities for the TypeScript compiler.",
   "author": "Anio Software <info@anio.software>",
   "repository": {
     "type": "git",
